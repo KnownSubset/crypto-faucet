@@ -34,7 +34,15 @@ module.exports = function(environment) {
         projectId: "crypto-e1d66",
         storageBucket: "",
         messagingSenderId: "917234560583"
-     }
+     },
+    fontawesome: {
+      icons: {
+        'pro-light-svg-icons': 'all',
+        'pro-solid-svg-icons': 'all',
+        'pro-regular-svg-icons': 'all',
+        'fontawesome-pro-solid': 'all',
+      }
+    }
   };
 
   if (environment === 'development') {

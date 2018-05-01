@@ -8,8 +8,10 @@ const Router = EmberRouter.extend({
 
 Router.map(function() {
   this.route('faucets', function() {
-    this.route('faucet');
+    this.route('faucet', { path: ':faucet_id' });
+    this.route('new');
   });
+  this.route('options');
 });
 
 export default Router;

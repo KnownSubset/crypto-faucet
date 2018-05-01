@@ -12,9 +12,4 @@ export default Route.extend({
     //this.store.pushPayload('faucet', { faucets });
     return this.store.findAll('faucet');
   },
-  afterModel(model, transistion){
-    if (transistion.targetName === 'index'){
-      this.transitionTo('faucets');
-    }
-  },
 });

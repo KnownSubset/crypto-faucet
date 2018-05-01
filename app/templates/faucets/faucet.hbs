@@ -1,0 +1,52 @@
+{{#mdc-layout-grid as |grid|}}
+  {{#grid.inner as |inner|}}
+    {{#inner.cell span=2}}
+      {{mdc-textfield
+        fullwidth=true
+        label="Faucet URL"
+        placeholder="http://freemoney.io"
+        value=faucetUrl
+        onchange=(action (mut faucetUrl))
+        type="url"
+        helptext="This will not be sent to any server"
+      }}
+    {{/inner.cell}}
+    {{#inner.cell span=2}}
+      {{mdc-textfield
+        fullwidth=true
+        label="Wallet Address"
+        placeholder="Where to send all of the monies"
+        value=faucetAddress
+        onchange=(action (mut faucetAddress))
+        type="url"
+        helptext="This will not be sent to any server"
+      }}
+    {{/inner.cell}}
+    {{#inner.cell span=3}}
+      {{mdc-textfield
+        fullwidth=true
+        label="Last Claim"
+        placeholder="When you last hit this faucet"
+        value=faucetLastClaim
+        type="datetime-local"
+        onchange=(action (mut faucetLastClaim))
+        helptext="This will not be sent to any server"
+      }}
+    {{/inner.cell}}
+    {{#inner.cell span=1}}
+      {{mdc-textfield
+        fullwidth=true
+        label="Refresh Rate"
+        placeholder="Some number of milliseconds"
+        value=faucetRefreshRate
+        onchange=(action (mut faucetRefreshRate))
+        helptext="This will not be sent to any server"
+      }}
+    {{/inner.cell}}
+    {{#inner.cell span=1}}
+      {{#mdc-fab mini=true plain=true onclick=(action "addFaucet" faucetUrl faucetAddress faucetRefreshRate)}}
+        {{fa-icon 'plus' size='2x'}}
+      {{/mdc-fab}}
+    {{/inner.cell}}
+  {{/grid.inner}}
+{{/mdc-layout-grid}}
