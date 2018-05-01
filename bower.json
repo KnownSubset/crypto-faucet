@@ -1,0 +1,6 @@
+{
+  "name": "crypto-faucet2",
+  "dependencies": {
+    "countdownjs": "^2.6.0"
+  }
+}

@@ -20,7 +20,21 @@ module.exports = function(environment) {
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
-    }
+    },
+    contentSecurityPolicy: {
+      'script-src': "'self' 'unsafe-eval' apis.google.com",
+      'frame-src': "'self' https://*.firebaseapp.com",
+      'connect-src': "'self' wss://*.firebaseio.com https://*.googleapis.com",
+      'style-src': "'self' 'unsafe-inline'"
+    },
+     firebase: {
+        apiKey: "AIzaSyBS8_kud8A2iZ69y9uqRVCOZr96ZUHSzyc",
+        authDomain: "crypto-e1d66.firebaseapp.com",
+        databaseURL: "https://crypto-e1d66.firebaseio.com",
+        projectId: "crypto-e1d66",
+        storageBucket: "",
+        messagingSenderId: "917234560583"
+     }
   };
 
   if (environment === 'development') {

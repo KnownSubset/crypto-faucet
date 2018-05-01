@@ -7,6 +7,9 @@ const Router = EmberRouter.extend({
 });
 
 Router.map(function() {
+  this.route('faucets', function() {
+    this.route('faucet');
+  });
 });
 
 export default Router;

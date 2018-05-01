@@ -1,0 +1,7 @@
+.full-width {
+  width: 100%;
+}
+
+.mdc-textfield--fullwidth:not(.mdc-textfield--multiline) {
+  height: auto;
+}

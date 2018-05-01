@@ -1,5 +1,114 @@
-{{!-- The following component displays Ember's default welcome message. --}}
-{{welcome-page}}
-{{!-- Feel free to remove this! --}}
+{{#mdc-layout-grid as |grid|}}
+  {{#grid.inner as |inner|}}
+    {{#inner.cell span=1}}
+      {{#mdc-fab mini=true plain=true onclick=(action "download")}}
+        {{fa-icon 'download' size='2x'}}
+      {{/mdc-fab}}
+    {{/inner.cell}}
+    {{#inner.cell span=1}}
+      {{#mdc-fab mini=true plain=true onclick=(action "upload")}}
+        {{fa-icon 'upload' size='2x'}}
+      {{/mdc-fab}}
+    {{/inner.cell}}
+    {{#inner.cell span=3}}
+    {{/inner.cell}}
+    {{#inner.cell span=1}}
+      {{#mdc-fab mini=true plain=true onclick=(action "run")}}
+        {{fa-icon 'play' size='2x'}}
+      {{/mdc-fab}}
+    {{/inner.cell}}
+    {{#inner.cell span=2}}
+      {{#mdc-fab mini=true plain=(not active) onclick=(action (mut active) (not active))}}
+        {{fa-icon 'clock' size='2x'}}
+      {{/mdc-fab}}
+    {{/inner.cell}}
+  {{/grid.inner}}
+{{/mdc-layout-grid}}
 
-{{outlet}}
+{{#mdc-elevation z=1}}
+  <h4>Faucets</h4>
+  {{mdc-linear-progress progress=myProgress}}
+{{/mdc-elevation}}
+{{#mdc-list two-line=true as |list|}}
+  {{#each model as |faucet|}}
+    {{#list.item as |item|}}
+
+      {{#item.start-detail as |class|}}
+        <span class="{{class}}" style={{if faucet.isClaimable 'color:forestgreen'}}>
+          {{fa-icon 'play-circle' size='2x'}}
+        </span>
+      {{/item.start-detail}}
+      {{#item.text as |text|}} {{faucet.url}} - {{faucet.address}}
+        {{#text.secondary}}
+          Claim rate {{moment-duration faucet.refreshRate}},
+          {{#if faucet.isClaimable}}
+            Active Now!
+          {{else}}
+            time remaining {{countdown-string startDate=faucet.nextClaim}}
+          {{/if}}
+        {{/text.secondary}}
+      {{/item.text}}
+      {{#item.end-detail as |class|}}
+        <span class="{{class}}">
+          {{fa-icon 'edit'}}
+        </span>
+        <span class="{{class}}" {{action 'destroy' faucet}}>
+          {{fa-icon 'trash'}}
+        </span>
+      {{/item.end-detail}}
+    {{/list.item}}
+  {{/each}}
+{{/mdc-list}}
+
+{{#mdc-layout-grid as |grid|}}
+  {{#grid.inner as |inner|}}
+    {{#inner.cell span=2}}
+      {{mdc-textfield
+        fullwidth=true
+        label="Faucet URL"
+        placeholder="http://freemoney.io"
+        value=faucetUrl
+        onchange=(action (mut faucetUrl))
+        type="url"
+        helptext="This will not be sent to any server"
+      }}
+    {{/inner.cell}}
+    {{#inner.cell span=2}}
+    {{mdc-textfield
+      fullwidth=true
+      label="Wallet Address"
+      placeholder="Where to send all of the monies"
+      value=faucetAddress
+      onchange=(action (mut faucetAddress))
+      type="url"
+      helptext="This will not be sent to any server"
+    }}
+    {{/inner.cell}}
+    {{#inner.cell span=3}}
+    {{mdc-textfield
+      fullwidth=true
+      label="Last Claim"
+      placeholder="When you last hit this faucet"
+      value=faucetLastClaim
+      type="datetime-local"
+      onchange=(action (mut faucetLastClaim))
+      helptext="This will not be sent to any server"
+    }}
+    {{/inner.cell}}
+    {{#inner.cell span=1}}
+    {{mdc-textfield
+      fullwidth=true
+      label="Refresh Rate"
+      placeholder="Some number of milliseconds"
+      value=faucetRefreshRate
+      onchange=(action (mut faucetRefreshRate))
+      helptext="This will not be sent to any server"
+    }}
+    {{/inner.cell}}
+    {{#inner.cell span=1}}
+      {{#mdc-fab mini=true plain=true onclick=(action "addFaucet" faucetUrl faucetAddress faucetRefreshRate)}}
+        {{fa-icon 'plus' size='2x'}}
+      {{/mdc-fab}}
+    {{/inner.cell}}
+  {{/grid.inner}}
+{{/mdc-layout-grid}}
