@@ -1,8 +1,8 @@
 {
-  "name": "crypto-faucet2",
+  "name": "crypto-faucet",
   "version": "0.0.1",
   "private": true,
-  "description": "Small description for crypto-faucet2 goes here",
+  "description": "Small description for crypto-faucet goes here",
   "license": "MIT",
   "author": "KnownSubset",
   "directories": {
@@ -68,6 +68,7 @@
     "ember-material-components-web": "^0.0.40",
     "ember-maybe-import-regenerator": "^0.1.6",
     "ember-moment": "^7.7.0",
+    "ember-power-select": "^2.0.0",
     "ember-resolver": "^4.0.0",
     "ember-source": "~3.1.0",
     "ember-truth-helpers": "^2.0.0",
@@ -80,6 +81,5 @@
   "engines": {
     "node": "^4.5 || 6.* || >= 7.*"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }

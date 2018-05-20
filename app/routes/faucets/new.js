@@ -2,9 +2,9 @@ import Route from '@ember/routing/route';
 
 export default Route.extend({
   model() {
-    return this.store.createRecord('faucet').save();
+    return this.store.createRecord('faucet');
   },
   afterModel(model) {
-    this.transitionTo('faucets.faucet', model);
+    this.transitionTo('faucets.edit', model);
   },
 });

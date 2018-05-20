@@ -2,7 +2,7 @@
 
 module.exports = function(environment) {
   let ENV = {
-    modulePrefix: 'crypto-faucet2',
+    modulePrefix: 'crypto-faucet',
     environment,
     rootURL: '/',
     locationType: 'auto',

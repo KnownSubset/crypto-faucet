@@ -2,21 +2,21 @@
   {{#mdc-drawer as |drawer|}}
     {{#drawer.toolbar-spacer}}{{/drawer.toolbar-spacer}}
     {{#drawer.content}}
-      {{#mdc-list-group as |group|}}
-        {{#mdc-list tagName='nav' dense=true as |list|}}
-          {{#list.item class=(if (eq currentRouteName 'faucets.index') "mdc-permanent-drawer--selected")}}
-            {{fa-icon 'money-bill' class='mdc-list-item__start-detail' prefix='far'}} Faucets
-          {{/list.item}}
-          {{#list.item class=(if (eq currentRouteName 'options.index') "mdc-permanent-drawer--selected")}}
-            {{fa-icon 'cogs' class='mdc-list-item__start-detail' prefix='far'}} Options
-          {{/list.item}}
-        {{/mdc-list}}
-        {{group.divider}}
-        {{#mdc-list tagName='nav' dense=true as |list|}}
-          {{#list.item}}{{fa-icon 'coffee' class='mdc-list-item__start-detail' prefix='far'}} Donate{{/list.item}}
-          {{#list.item}}{{fa-icon 'github' class='mdc-list-item__start-detail' prefix='fab'}} Github{{/list.item}}
-        {{/mdc-list}}
-      {{/mdc-list-group}}
+      <nav class="mdc-drawer mdc-drawer--permanent mdc-typography">
+        {{#link-to "faucets.index" class=(concat 'mdc-list-item ' (if (eq currentRouteName 'faucets.index') 'mdc-permanent-drawer--selected'))}}
+          {{fa-icon 'money-bill' class='mdc-list-item__start-detail' prefix='far'}} Faucets
+        {{/link-to}}
+        {{#link-to "options" class=(concat 'mdc-list-item ' (if (eq currentRouteName 'options.index') 'mdc-permanent-drawer--selected'))}}
+          {{fa-icon 'cogs' class='mdc-list-item__start-detail' prefix='far'}} Options
+        {{/link-to}}
+        <hr role="separator" class="mdc-list-divider ember-view">
+        {{#link-to "faucets.index" class=(concat 'mdc-list-item ' (if (eq currentRouteName 'faucets.index') 'mdc-permanent-drawer--selected'))}}
+          {{fa-icon 'coffee' class='mdc-list-item__start-detail' prefix='far'}} Donate
+        {{/link-to}}
+        {{#link-to "faucets.index" class=(concat 'mdc-list-item ' (if (eq currentRouteName 'faucets.index') 'mdc-permanent-drawer--selected'))}}
+          {{fa-icon 'github' class='mdc-list-item__start-detail' prefix='fab'}} Github
+        {{/link-to}}
+      </nav>
     {{/drawer.content}}
   {{/mdc-drawer}}
   <div class="demo-content inner-flexible">

@@ -4,41 +4,17 @@
       <span class="mdc-toolbar__title">Faucets</span>
     </section>
     <section class="mdc-toolbar__section mdc-toolbar__section--align-end">
+      <span class='mdc-toolbar__icon mdc-ripple-surface' {{action "run"}}>{{fa-icon 'play' }}</span>
+      <span class='mdc-toolbar__icon mdc-ripple-surface {{if active ''}}' {{action (mut active) (not active)}}>{{fa-icon 'clock'}}</span>
       {{#link-to 'faucets.new'}}
-        {{fa-icon 'plus' class='mdc-toolbar__icon' onclick=(action "addFaucet" faucetUrl faucetAddress faucetRefreshRate)}}
+        {{fa-icon 'plus' class='mdc-toolbar__icon'}}
       {{/link-to}}
     </section>
   </div>
 </header>
 <main class="demo-main">
   <h1>^</h1>
-  {{mdc-linear-progress progress=myProgress}}
-  {{#mdc-layout-grid as |grid|}}
-    {{#grid.inner as |inner|}}
-      {{#inner.cell span=1}}
-        {{#mdc-fab mini=true plain=true onclick=(action "download")}}
-          {{fa-icon 'download' size='2x'}}
-        {{/mdc-fab}}
-      {{/inner.cell}}
-      {{#inner.cell span=1}}
-        {{#mdc-fab mini=true plain=true onclick=(action "upload")}}
-          {{fa-icon 'upload' size='2x'}}
-        {{/mdc-fab}}
-      {{/inner.cell}}
-      {{#inner.cell span=3}}
-      {{/inner.cell}}
-      {{#inner.cell span=1}}
-        {{#mdc-fab mini=true plain=true onclick=(action "run")}}
-          {{fa-icon 'play' size='2x'}}
-        {{/mdc-fab}}
-      {{/inner.cell}}
-      {{#inner.cell span=2}}
-        {{#mdc-fab mini=true plain=(not active) onclick=(action (mut active) (not active))}}
-          {{fa-icon 'clock' size='2x'}}
-        {{/mdc-fab}}
-      {{/inner.cell}}
-    {{/grid.inner}}
-  {{/mdc-layout-grid}}
+  {{mdc-linear-progress progress=50}}
 
   {{#mdc-list two-line=true as |list|}}
     {{#each model as |faucet|}}
@@ -48,20 +24,18 @@
             {{fa-icon 'play-circle' size='2x'}}
           </span>
         {{/item.start-detail}}
-        {{#item.text as |text|}} {{#link-to 'faucets.faucet' faucet}} {{faucet.url}} - {{faucet.address}} {{/link-to}}
+        {{#item.text as |text|}} {{#link-to 'faucets.edit' faucet}} {{faucet.url}} - {{faucet.address}} {{/link-to}}
           {{#text.secondary}}
             Claim rate {{moment-duration faucet.refreshRate}},
             {{#if faucet.isClaimable}}
               Active Now!
             {{else}}
-              time remaining {{countdown-string startDate=faucet.nextClaim}}
+              time remaining
             {{/if}}
           {{/text.secondary}}
         {{/item.text}}
         {{#item.end-detail as |class|}}
-          <span class="{{class}}">
-            {{fa-icon 'edit'}}
-          </span>
+          {{#link-to 'faucets.edit' faucet class=class }}  {{fa-icon 'edit'}} {{/link-to}}
           <span class="{{class}}" {{action 'destroy' faucet}}>
             {{fa-icon 'trash'}}
           </span>

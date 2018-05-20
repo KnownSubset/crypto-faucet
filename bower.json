@@ -1,5 +1,5 @@
 {
-  "name": "crypto-faucet2",
+  "name": "crypto-faucet",
   "dependencies": {
     "countdownjs": "^2.6.0"
   }

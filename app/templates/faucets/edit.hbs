@@ -1,0 +1,89 @@
+<header class="mdc-toolbar mdc-toolbar--fixed mdc-toolbar--flexible-space-minimized">
+  <div class="mdc-toolbar__row">
+    <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
+      <span class="mdc-toolbar__title">Faucets - {{model.url}}</span>
+    </section>
+    <section class="mdc-toolbar__section mdc-toolbar__section--align-end">
+      <span class='mdc-toolbar__icon mdc-ripple-surface' {{action "save"}}>{{fa-icon 'save' }}</span>
+    </section>
+  </div>
+</header>
+<main class="demo-main">
+  <h1>^</h1>
+  {{#mdc-list as |list|}}
+    {{#list.item as |item|}}
+      {{#item.start-detail as |class|}}
+        {{fa-icon 'link' class=class  prefix='far'}}
+      {{/item.start-detail}}
+      {{mdc-textfield
+        class='full-width'
+        fullwidth=true
+        box=true
+        label="Faucet URL"
+        placeholder="http://freemoney.io"
+        value=model.url
+        onchange=(action (mut model.url))
+        type="url"
+      }}
+    {{/list.item}}
+    {{#list.item as |item|}}
+      {{#item.start-detail as |class|}}
+        {{fa-icon 'address-card' class=class  prefix='far'}}
+      {{/item.start-detail}}
+      {{mdc-textfield
+        class='full-width'
+        fullwidth=true
+        box=true
+        label="Wallet Address"
+        placeholder="Where to send all of the monies"
+        value=model.address
+        onchange=(action (mut model.address))
+        type="url"
+      }}
+    {{/list.item}}
+    {{#list.item as |item|}}
+      {{#item.start-detail as |class|}}
+        {{fa-icon 'clock' class=class  prefix='far'}}
+      {{/item.start-detail}}
+      {{mdc-textfield
+        class='full-width'
+        fullwidth=true
+        box=true
+        label="Last Claim"
+        placeholder="When you last hit this faucet"
+        value=faucet.lastClaim
+        type="datetime-local"
+        onchange=(action (mut faucet.lastClaim))
+      }}
+    {{/list.item}}
+    {{#list.item as |item|}}
+      {{#item.start-detail as |class|}}
+        {{fa-icon 'alarm-clock' class=class  prefix='far'}}
+      {{/item.start-detail}}
+      {{mdc-textfield
+        class='full-width'
+        fullwidth=true
+        box=true
+        label="Refresh Rate"
+        placeholder="Some number of milliseconds"
+        value=model.refreshRate
+        onchange=(action (mut model.refreshRate))
+      }}
+    {{/list.item}}
+  {{/mdc-list}}
+
+  <h3>
+    {{#mdc-fab mini=true onclick=(action "addStep")}}
+      {{fa-icon 'plus' prefix=far}}
+    {{/mdc-fab}}  Steps
+  </h3>
+
+  {{#each model.steps as |step|}}
+    {{#power-select options=operations selected=step.operation onchange=(action (mut step.operation)) as |name|}}
+      {{name}}
+    {{/power-select}}
+  {{else}}
+    {{fa-icon 'frown' class=class  prefix='far'}}
+    You don't have any steps defined
+  {{/each}}
+</main>

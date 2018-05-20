@@ -18,4 +18,5 @@ export default DS.Model.extend({
     const lastClaim = this.lastClaim || new Date();
     return lastClaim.getTime() + this.refreshRate;
   }),
+  steps: DS.hasMany('step'),
 });
