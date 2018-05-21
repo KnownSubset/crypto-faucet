@@ -4,7 +4,24 @@
       <span class="mdc-toolbar__title">Faucets - {{model.url}}</span>
     </section>
     <section class="mdc-toolbar__section mdc-toolbar__section--align-end">
-      <span class='mdc-toolbar__icon mdc-ripple-surface' {{action "save"}}>{{fa-icon 'save' }}</span>
+      <span class='mdc-toolbar__icon mdc-ripple-surface' {{action "save"}}>
+        {{#if (not model.isValid)}}
+          <span class="fa-layers fa-lg">
+            {{fa-icon 'save'}}
+            {{fa-icon 'times' class='fa-inverse error' transform='shrink-2  right-4'}}
+          </span>
+        {{else if model.isDirty}}
+          <span class="fa-layers fa-lg">
+            {{fa-icon 'save'}}
+          </span>
+        {{else}}
+          <span class="fa-layers fa-lg">
+            {{fa-icon 'save'}}
+            {{fa-icon 'check' class='fa-inverse success' transform='shrink-2  right-4'}}
+          </span>
+        {{/if}}
+
+      </span>
     </section>
   </div>
 </header>
@@ -15,75 +32,70 @@
       {{#item.start-detail as |class|}}
         {{fa-icon 'link' class=class  prefix='far'}}
       {{/item.start-detail}}
-      {{mdc-textfield
-        class='full-width'
-        fullwidth=true
-        box=true
-        label="Faucet URL"
-        placeholder="http://freemoney.io"
-        value=model.url
-        onchange=(action (mut model.url))
-        type="url"
-      }}
+      {{mdc-textfield class='full-width pad-top' fullwidth=true label="Faucet URL" placeholder="http://freemoney.io" value=model.url onchange=(action (mut model.url)) type="url" }}
     {{/list.item}}
     {{#list.item as |item|}}
       {{#item.start-detail as |class|}}
-        {{fa-icon 'address-card' class=class  prefix='far'}}
+        {{fa-icon 'power-off' class=class  prefix='far'}}
       {{/item.start-detail}}
-      {{mdc-textfield
-        class='full-width'
-        fullwidth=true
-        box=true
-        label="Wallet Address"
-        placeholder="Where to send all of the monies"
-        value=model.address
-        onchange=(action (mut model.address))
-        type="url"
-      }}
+      <label>
+        {{mdc-switch checked=model.active onchange=(action (mut model.active))}}
+        Active
+      </label>
     {{/list.item}}
     {{#list.item as |item|}}
       {{#item.start-detail as |class|}}
         {{fa-icon 'clock' class=class  prefix='far'}}
       {{/item.start-detail}}
-      {{mdc-textfield
-        class='full-width'
-        fullwidth=true
-        box=true
-        label="Last Claim"
-        placeholder="When you last hit this faucet"
-        value=faucet.lastClaim
-        type="datetime-local"
-        onchange=(action (mut faucet.lastClaim))
-      }}
+      <label class="mdc-textfield mdc-textfield--upgraded mdc-textfield--fullwidth">
+        {{ember-flatpickr class="mdc-textfield__input" date=(readonly model.lastClaim) enableSeconds=true enableTime=true minuteIncrement=1 onChange=(action 'updateLastClaim') parseDate=false placeholder='Choose a Date'}}
+        <span class="mdc-textfield__label mdc-textfield__label--float-above">Last Claim</span>
+      </label>
     {{/list.item}}
     {{#list.item as |item|}}
       {{#item.start-detail as |class|}}
         {{fa-icon 'alarm-clock' class=class  prefix='far'}}
       {{/item.start-detail}}
-      {{mdc-textfield
-        class='full-width'
-        fullwidth=true
-        box=true
-        label="Refresh Rate"
-        placeholder="Some number of milliseconds"
-        value=model.refreshRate
-        onchange=(action (mut model.refreshRate))
-      }}
+      {{mdc-textfield class='full-width pad-top' type='number' fullwidth=true label="Refresh Rate" placeholder="Some number of milliseconds" value=model.refreshRate onchange=(action (mut model.refreshRate)) }}
+      {{mdc-textfield class='full-width pad-top' disabled=true fullwidth=true value=model.refreshInterval }}
     {{/list.item}}
   {{/mdc-list}}
 
-  <h3>
+  <h3 class="pad-left__small">
     {{#mdc-fab mini=true onclick=(action "addStep")}}
       {{fa-icon 'plus' prefix=far}}
     {{/mdc-fab}}  Steps
   </h3>
 
-  {{#each model.steps as |step|}}
-    {{#power-select options=operations selected=step.operation onchange=(action (mut step.operation)) as |name|}}
-      {{name}}
-    {{/power-select}}
-  {{else}}
-    {{fa-icon 'frown' class=class  prefix='far'}}
-    You don't have any steps defined
-  {{/each}}
+  {{#mdc-layout-grid as |grid|}}
+    {{#each model.steps as |step|}}
+      {{#grid.inner as |inner|}}
+        {{#inner.cell span=1}}
+          Operation
+        {{/inner.cell}}
+        {{#inner.cell span=1}}
+          {{#power-select options=operations selected=step.operation onchange=(action (mut step.operation)) as |name|}}
+            {{name}}
+          {{/power-select}}
+        {{/inner.cell}}
+        {{#inner.cell span=4}}
+          {{mdc-textfield class='full-width pad-top' fullwidth=true label="Element" placeholder="What element to apply the operation" value=step.element onchange=(action (mut step.element))   }}
+
+        {{/inner.cell}}
+        {{#inner.cell span=4}}
+          {{mdc-textfield class='full-width pad-top' fullwidth=true label="Value" placeholder="What to type in" value=(if (eq 'type' step.operation) step.value 'Value not required') disabled=(not-eq 'type' step.operation) onchange=(action (mut step.value))   }}
+
+        {{/inner.cell}}
+        {{#inner.cell span=1}}
+          <span class='mdc-ripple-surface' {{action "destroy" model step}}>{{fa-icon 'trash'}}</span>
+
+
+        {{/inner.cell}}
+      {{/grid.inner}}
+    {{else}}
+      {{fa-icon 'frown' class=class  prefix='far'}}
+      You don't have any steps defined
+    {{/each}}
+
+  {{/mdc-layout-grid}}
 </main>

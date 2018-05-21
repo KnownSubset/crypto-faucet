@@ -10,6 +10,19 @@ body {
 .full-width {
   width: 100%;
 }
+.pad-left__small {
+  padding-left: 5px;
+}
+.pad-top {
+  padding-top: 10px;
+}
+.pad-top .mdc-textfield__label--float-above {
+  top: 0;
+}
+
+.mdc-list-item {
+  margin-top: 10px;
+}
 
 .mdc-textfield--fullwidth:not(.mdc-textfield--multiline) {
   height: auto;
@@ -45,14 +58,16 @@ body {
   height: 100%;
   box-sizing: border-box;
 }
-.component-doc {
-  border-bottom: 1px solid var(--mdc-theme-primary, #000);
-  padding-bottom: 2em;
-  margin-bottom: 1em;
-}
 
 .fixed-relative {
   top: inherit;
   left: inherit;
   position: absolute;
+}
+
+.success {
+  color: green;
+}
+.error {
+  color: red;
 }

@@ -10,10 +10,10 @@
           {{fa-icon 'cogs' class='mdc-list-item__start-detail' prefix='far'}} Options
         {{/link-to}}
         <hr role="separator" class="mdc-list-divider ember-view">
-        {{#link-to "faucets.index" class=(concat 'mdc-list-item ' (if (eq currentRouteName 'faucets.index') 'mdc-permanent-drawer--selected'))}}
+        {{#link-to "index" class=(concat 'mdc-list-item ' (if (eq currentRouteName 'donate') 'mdc-permanent-drawer--selected'))}}
           {{fa-icon 'coffee' class='mdc-list-item__start-detail' prefix='far'}} Donate
         {{/link-to}}
-        {{#link-to "faucets.index" class=(concat 'mdc-list-item ' (if (eq currentRouteName 'faucets.index') 'mdc-permanent-drawer--selected'))}}
+        {{#link-to "index" class='mdc-list-item'}}
           {{fa-icon 'github' class='mdc-list-item__start-detail' prefix='fab'}} Github
         {{/link-to}}
       </nav>

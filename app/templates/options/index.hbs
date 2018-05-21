@@ -11,4 +11,13 @@
 </header>
 <main class="demo-main">
   <h1>^</h1>
-</main>
+
+  {{#mdc-list as |list|}}
+    {{#list.item as |item|}}
+      <label>
+        {{mdc-switch checked=isSecondSwitchOn onchange=(action (mut isSecondSwitchOn))}}
+        {{if isSecondSwitchOn 'On' 'Off'}}
+      </label>
+    {{/list.item}}
+  {{/mdc-list}}
+ </main>
