@@ -1,0 +1,31 @@
+{
+  "manifest_version": 2,
+  "name": "Crypto Faucet",
+  "version": "0.0.1",
+
+  "description": "Makes it possible to automate the pouring of a faucet.",
+
+  "icons": {
+    "48": "icons/border-48.png"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["*://*.mozilla.org/*"],
+      "js": ["assets/vendor.js","assets/crypto-faucet.js"]
+    }
+  ],
+
+  "permissions": [
+    "activeTab",
+    "tabs",
+    "webNavigation",
+  ],
+
+  "browser_action": {
+    "default_icon": "icons/beasts-32.png",
+    "default_title": "Crypto Faucet",
+    "default_popup": "index.html"
+  },
+
+}

@@ -13,14 +13,14 @@
   </div>
 </header>
 <main class="demo-main">
-  <h1>Fake padding</h1>
+  <h6>Fake padding</h6>
   {{mdc-linear-progress progress=50}}
 
   {{#mdc-list two-line=true as |list|}}
     {{#each model as |faucet|}}
       {{#list.item as |item|}}
         {{#item.start-detail as |class|}}
-          <span class="{{class}}" style={{if faucet.isClaimable 'color:forestgreen'}}>
+          <span class="{{class}}" style={{if faucet.isClaimable 'color:forestgreen'}} {{action 'run' faucet}}>
             {{fa-icon 'play-circle' size='2x'}}
           </span>
         {{/item.start-detail}}
