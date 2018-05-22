@@ -13,7 +13,7 @@
   </div>
 </header>
 <main class="demo-main">
-  <h1>^</h1>
+  <h1>Fake padding</h1>
   {{mdc-linear-progress progress=50}}
 
   {{#mdc-list two-line=true as |list|}}
@@ -24,7 +24,7 @@
             {{fa-icon 'play-circle' size='2x'}}
           </span>
         {{/item.start-detail}}
-        {{#item.text as |text|}} {{#link-to 'faucets.edit' faucet}} {{faucet.url}} - {{faucet.address}} {{/link-to}}
+        {{#item.text as |text|}} {{#link-to 'faucets.edit' faucet}} {{faucet.url}} {{/link-to}}
           {{#text.secondary}}
             Claim rate {{moment-duration faucet.refreshRate}},
             {{#if faucet.isClaimable}}

@@ -26,7 +26,7 @@
   </div>
 </header>
 <main class="demo-main">
-  <h1>^</h1>
+  <h1>Fake padding</h1>
   {{#mdc-list as |list|}}
     {{#list.item as |item|}}
       {{#item.start-detail as |class|}}
@@ -57,7 +57,7 @@
         {{fa-icon 'alarm-clock' class=class  prefix='far'}}
       {{/item.start-detail}}
       {{mdc-textfield class='full-width pad-top' type='number' fullwidth=true label="Refresh Rate" placeholder="Some number of milliseconds" value=model.refreshRate onchange=(action (mut model.refreshRate)) }}
-      {{mdc-textfield class='full-width pad-top' disabled=true fullwidth=true value=model.refreshInterval }}
+      {{mdc-textfield class='full-width pad-top' disabled=true fullwidth=true value=(moment-duration (parse-int model.refreshRate)) }}
     {{/list.item}}
   {{/mdc-list}}
 
@@ -83,7 +83,7 @@
 
         {{/inner.cell}}
         {{#inner.cell span=4}}
-          {{mdc-textfield class='full-width pad-top' fullwidth=true label="Value" placeholder="What to type in" value=(if (eq 'type' step.operation) step.value 'Value not required') disabled=(not-eq 'type' step.operation) onchange=(action (mut step.value))   }}
+          {{mdc-textfield class='full-width pad-top' fullwidth=true label=(if (eq 'type' step.operation) 'Value') placeholder="What to type in" value=(if (eq 'type' step.operation) step.value 'Not required') disabled=(not-eq 'type' step.operation) onchange=(action (mut step.value))   }}
 
         {{/inner.cell}}
         {{#inner.cell span=1}}

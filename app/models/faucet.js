@@ -4,7 +4,7 @@ import { isBlank } from '@ember/utils';
 
 export default DS.Model.extend({
   url: DS.attr('string'),
-  refreshRate: DS.attr('string'),
+  refreshRate: DS.attr('number'),
   lastClaim: DS.attr('date', { defaultValue: () => new Date() }),
   active: DS.attr('boolean', { defaultValue: true }),
   steps: DS.hasMany('step', { async: true }),
@@ -22,15 +22,5 @@ export default DS.Model.extend({
     const refreshRate = Number.parseInt(this.refreshRate, 10);
     const time = lastClaim.getTime();
     return time + refreshRate;
-  }),
-  refreshInterval: computed('refreshRate', function(){
-    const refreshRate = Number.parseInt(this.refreshRate, 10);
-    const seconds = refreshRate / 1000;
-    const minutes = seconds / 60;
-    const hours = minutes / 60;
-    if (seconds <= 60) { return `Every ${seconds} seconds`; }
-    if (minutes <= 60) { return `Every ${minutes} minutes`; }
-    if (hours <= 24) { return `Every ${hours} hours`; }
-    return `Every ${hours / 24} days`;
   }),
 });
