@@ -1,7 +1,6 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
 import { computed } from '@ember/object';
-import { readOnly } from '@ember/object/computed';
 
 export default Controller.extend({
   router: service(),
@@ -10,7 +9,6 @@ export default Controller.extend({
   }),
   actions: {
     addFaucet(url ='http://garlicrain.xyz/', address = 'Gep5TSJYJrS3jkMfxDcDgBh3tyye25G2qU', refreshRate = 10000) {
-      const model = this.model;
       const faucet = { url, address, refreshRate };
       return this.store.createRecord('faucet', faucet).save();
     },

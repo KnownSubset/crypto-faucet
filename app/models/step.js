@@ -9,7 +9,6 @@ export default DS.Model.extend({
   value: DS.attr('string'),
   isValid: computed('element', 'value', 'operation', 'isLoaded', function(){
     const operation = this.operation;
-    const loaded = this.isLoaded;
     return ![this.element, operation].any(isBlank) && (operation !== 'type' || isPresent(this.value));
   }),
 });

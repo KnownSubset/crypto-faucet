@@ -1,10 +1,5 @@
 import Route from '@ember/routing/route';
 
-const createFaucet = function(id, url, address, refreshRate){
-  return { id, url, address, refreshRate, active: true };
-};
-const minute = 60000;
-const hour = 60 * minute;
 export default Route.extend({
   model(){
     //const garlicFaucets =['http://garlicrain.xyz/', 'https://faucet.garlic.wine/', 'https://faucet.garlicpool.org/index.php', 'https://faucetgarlico.in/', 'https://freegarlico.in/index.html', 'https://garlicoinfaucet.com/free-garlicoin/'];

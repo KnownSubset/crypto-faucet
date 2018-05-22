@@ -1,7 +1,6 @@
 import DS from 'ember-data';
 import { computed } from '@ember/object';
 import { isBlank } from '@ember/utils';
-import countdown from 'countdownjs';
 
 export default DS.Model.extend({
   url: DS.attr('string'),
@@ -9,11 +8,11 @@ export default DS.Model.extend({
   lastClaim: DS.attr('date', { defaultValue: () => new Date() }),
   active: DS.attr('boolean', { defaultValue: true }),
   steps: DS.hasMany('step', { async: true }),
-  isValid: computed('url', 'lastClaim', 'refreshRate', 'steps.[]', 'steps.@each.isValid', function(){
+  isValid: computed('url', 'lastClaim', 'refreshRate', 'steps.[]','steps.@each.isValid', function(){
     const stepsValid = this.steps.isEvery('isValid');
     return stepsValid && ![this.url, this.lastClaim, this.refreshRate].any(isBlank);
   }),
-  isDirty: computed('hasDirtyAttributes', 'steps.[]', 'steps.@each.hasDirtyAttributes', function(){
+  isDirty: computed('hasDirtyAttributes', 'steps.[]','steps.@each.hasDirtyAttributes', function(){
     const stepsDirty = this.steps.isAny('hasDirtyAttributes');
     return stepsDirty || this.hasDirtyAttributes;
   }),
@@ -32,6 +31,6 @@ export default DS.Model.extend({
     if (seconds <= 60) { return `Every ${seconds} seconds`; }
     if (minutes <= 60) { return `Every ${minutes} minutes`; }
     if (hours <= 24) { return `Every ${hours} hours`; }
-    return `Every ${hours / 24} days`;;
+    return `Every ${hours / 24} days`;
   }),
 });
