@@ -21,5 +21,9 @@
   {{/mdc-drawer}}
   <div class="demo-content inner-flexible">
     {{outlet}}
+
+    {{#each errors as |error|}}
+      {{error}}
+    {{/each}}
   </div>
 </div>

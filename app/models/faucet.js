@@ -8,11 +8,13 @@ export default DS.Model.extend({
   lastClaim: DS.attr('date', { defaultValue: () => new Date() }),
   active: DS.attr('boolean', { defaultValue: true }),
   steps: DS.hasMany('step', { async: true }),
+  // eslint-disable-next-line ember/use-brace-expansion
   isValid: computed('url', 'lastClaim', 'refreshRate', 'steps.[]','steps.@each.isValid', function(){
     const stepsValid = this.steps.isEvery('isValid');
     return stepsValid && ![this.url, this.lastClaim, this.refreshRate].any(isBlank);
   }),
-  isDirty: computed('hasDirtyAttributes', 'steps.[]','steps.@each.hasDirtyAttributes', function(){
+  // eslint-disable-next-line ember/use-brace-expansion
+  isDirty: computed('hasDirtyAttributes', 'steps.[]', 'steps.@each.hasDirtyAttributes', function(){
     const stepsDirty = this.steps.isAny('hasDirtyAttributes');
     return stepsDirty || this.hasDirtyAttributes;
   }),
@@ -22,5 +24,9 @@ export default DS.Model.extend({
     const refreshRate = Number.parseInt(this.refreshRate, 10);
     const time = lastClaim.getTime();
     return time + refreshRate;
+  }),
+  toCode: computed('steps.{[],@each.toCode,@each.isLoaded}', function(){
+    const steps = this.get('steps');
+    return steps.mapBy('toCode').join('\n');
   }),
 });

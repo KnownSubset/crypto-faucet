@@ -11,4 +11,14 @@ export default DS.Model.extend({
     const operation = this.operation;
     return ![this.element, operation].any(isBlank) && (operation !== 'type' || isPresent(this.value));
   }),
+  toCode: computed('element', 'value', 'operation', function(){
+    const operation = this.operation;
+    if (operation === 'click') {
+      return `document.querySelector("${this.element}").click();`;
+    }
+    if (operation === 'type') {
+      return `document.querySelector("${this.element}").value = '${this.value}';`;
+    }
+    return `console.error('Unknown step operation')`;
+  }),
 });

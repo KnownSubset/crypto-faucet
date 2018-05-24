@@ -9,23 +9,17 @@
     "48": "icons/border-48.png"
   },
 
-  "content_scripts": [
-    {
-      "matches": ["*://*.mozilla.org/*"],
-      "js": ["assets/vendor.js","assets/crypto-faucet.js"]
-    }
-  ],
-
   "permissions": [
     "activeTab",
     "tabs",
-    "webNavigation",
+    "<all_urls>",
+    "webNavigation"
   ],
 
-  "browser_action": {
+  "sidebar_action": {
     "default_icon": "icons/beasts-32.png",
     "default_title": "Crypto Faucet",
-    "default_popup": "index.html"
-  },
+    "default_panel": "index.html"
+  }
 
 }
