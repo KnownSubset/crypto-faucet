@@ -13,11 +13,12 @@ export default DS.Model.extend({
   }),
   toCode: computed('element', 'value', 'operation', function(){
     const operation = this.operation;
+    const random = Math.floor(Math.random()*10000);
     if (operation === 'click') {
-      return `document.querySelector("${this.element}").click();`;
+      return `const element${random} = document.querySelector("${this.element}");\nif (element${random}) element${random}.click();`;
     }
     if (operation === 'type') {
-      return `document.querySelector("${this.element}").value = '${this.value}';`;
+      return `const element${random} = document.querySelector("${this.element}");\nif (element${random}) element${random}.value = '${this.value}';`;
     }
     return `console.error('Unknown step operation')`;
   }),
