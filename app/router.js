@@ -10,6 +10,7 @@ Router.map(function() {
   this.route('faucets', function() {
     this.route('edit', { path: ':faucet_id' });
     this.route('new');
+    this.route('copy', { path: ':clone_id' });
   });
   this.route('options', function() {});
 });

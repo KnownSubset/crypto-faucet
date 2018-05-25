@@ -12,9 +12,10 @@ export default Controller.extend({
   errors: computed(() => ["Example"]),
   init() {
     this._super(...arguments);
-    Ember.onerror = function(error) {
-      this.get('errors').addObject(error);
-    };
+    const controller = this;
+    /*Ember.onerror = function(error) {
+      controller.get('errors').addObject(error);
+    };*/
   },
   actions: {
     addFaucet(url ='http://garlicrain.xyz/', address = 'Gep5TSJYJrS3jkMfxDcDgBh3tyye25G2qU', refreshRate = 10000) {

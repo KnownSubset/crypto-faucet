@@ -68,7 +68,7 @@
   </h3>
 
   {{#mdc-layout-grid as |grid|}}
-    {{#each model.steps as |step|}}
+    {{#each (sort-by 'order' model.steps) as |step|}}
       {{#grid.inner as |inner|}}
         {{#inner.cell span=1}}
           Operation
@@ -77,6 +77,9 @@
           {{#power-select options=operations selected=step.operation onchange=(action (mut step.operation)) as |name|}}
             {{name}}
           {{/power-select}}
+        {{/inner.cell}}
+        {{#inner.cell span=1}}
+          {{mdc-textfield class='full-width pad-top' type="number" min=1 fullwidth=true label="Order" placeholder="Order of operation" value=step.order onchange=(action (mut step.order)) }}
         {{/inner.cell}}
         {{#inner.cell span=4}}
           {{mdc-textfield class='full-width pad-top' fullwidth=true label="Element" placeholder="What element to apply the operation" value=step.element onchange=(action (mut step.element))   }}

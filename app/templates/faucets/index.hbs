@@ -35,6 +35,7 @@
           {{/text.secondary}}
         {{/item.text}}
         {{#item.end-detail as |class|}}
+          {{#link-to 'faucets.copy' faucet class=class }}  {{fa-icon 'clone'}} {{/link-to}}
           {{#link-to 'faucets.edit' faucet class=class }}  {{fa-icon 'edit'}} {{/link-to}}
           <span class="{{class}}" {{action 'destroy' faucet}}>
             {{fa-icon 'trash'}}

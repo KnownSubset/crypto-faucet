@@ -25,7 +25,8 @@ module.exports = function(environment) {
       'script-src': "'self' 'unsafe-eval' apis.google.com",
       'frame-src': "'self' https://*.firebaseapp.com",
       'connect-src': "'self' wss://*.firebaseio.com https://*.googleapis.com",
-      'style-src': "'self' 'unsafe-inline'"
+      'style-src': "'self' 'unsafe-inline'",
+      'img-src': "'self' data:",
     },
      firebase: {
         apiKey: "AIzaSyBS8_kud8A2iZ69y9uqRVCOZr96ZUHSzyc",

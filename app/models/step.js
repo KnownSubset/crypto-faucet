@@ -4,6 +4,7 @@ import { isBlank, isPresent } from '@ember/utils';
 
 export default DS.Model.extend({
   faucet: DS.belongsTo('faucet'),
+  order: DS.attr('number', { defaultValue: 1 }),
   element: DS.attr('string'),
   operation: DS.attr('string'),
   value: DS.attr('string'),
