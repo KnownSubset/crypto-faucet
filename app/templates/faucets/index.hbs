@@ -24,7 +24,7 @@
             {{fa-icon 'play-circle' size='2x'}}
           </span>
         {{/item.start-detail}}
-        {{#item.text as |text|}} {{#link-to 'faucets.edit' faucet}} {{faucet.url}} {{/link-to}}
+        {{#item.text fullwidth=true as |text|}} {{#link-to 'faucets.edit' faucet}} {{faucet.url}} {{/link-to}}
           {{#text.secondary}}
             Claim rate {{moment-duration faucet.refreshRate}},
             {{#if faucet.isClaimable}}

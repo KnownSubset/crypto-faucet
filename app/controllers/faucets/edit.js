@@ -3,7 +3,7 @@ import { computed } from '@ember/object';
 import { all } from 'rsvp';
 
 export default Controller.extend({
-  operations: computed(() => ['click','scroll','type']),
+  operations: computed(() => ['click','scroll','type','wait', 'inject']),
   actions: {
     addStep() {
       const faucet = this.model;

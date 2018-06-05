@@ -83,16 +83,14 @@
         {{/inner.cell}}
         {{#inner.cell span=4}}
           {{mdc-textfield class='full-width pad-top' fullwidth=true label="Element" placeholder="What element to apply the operation" value=step.element onchange=(action (mut step.element))   }}
-
         {{/inner.cell}}
         {{#inner.cell span=4}}
-          {{mdc-textfield class='full-width pad-top' fullwidth=true label=(if (eq 'type' step.operation) 'Value') placeholder="What to type in" value=(if (eq 'type' step.operation) step.value 'Not required') disabled=(not-eq 'type' step.operation) onchange=(action (mut step.value))   }}
-
+          {{#let (contains step.operation (array 'type' 'wait')) as |isValueRequired|}}
+            {{mdc-textfield class='full-width pad-top' fullwidth=true disabled=(not isValueRequired) label=(if isValueRequired 'Value') placeholder="What to type in" value=(if isValueRequired step.value 'Not required') onchange=(action (mut step.value)) }}
+          {{/let}}
         {{/inner.cell}}
         {{#inner.cell span=1}}
           <span class='mdc-ripple-surface' {{action "destroy" model step}}>{{fa-icon 'trash'}}</span>
-
-
         {{/inner.cell}}
       {{/grid.inner}}
     {{else}}
@@ -102,12 +100,5 @@
 
   {{/mdc-layout-grid}}
 
-  {{mdc-textfield
-    label="Example Injected script"
-    value=model.toCode
-    multiline=true
-    disabled=true
-    rows=6
-    cols=80
-  }}
+  {{mdc-textfield    label="Example Injected script"    value=model.toCode    multiline=true    disabled=true    rows=6    cols=80  }}
 </main>

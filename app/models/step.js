@@ -10,7 +10,7 @@ export default DS.Model.extend({
   value: DS.attr('string'),
   isValid: computed('element', 'value', 'operation', 'isLoaded', function(){
     const operation = this.operation;
-    return ![this.element, operation].any(isBlank) && (operation !== 'type' || isPresent(this.value));
+    return ![this.element, operation].any(isBlank) && (!['type', 'wait'].includes(operation) || isPresent(this.value));
   }),
   toCode: computed('element', 'value', 'operation', function(){
     const operation = this.operation;

@@ -1,31 +1,45 @@
-/* global browser */
+/* global browser, chrome */
 import Service from '@ember/service';
 import RSVP from 'rsvp';
-import Ember from 'ember';
+
+const worker = window.browser || window.chrome;
+
+async function executeStep(step, tab) {
+  const properties = step.getProperties('element', 'operation', 'value');
+  try {
+    properties.command = properties.operation;
+    if (properties.operation === 'inject') {
+      await RSVP.cast(worker.tabs.executeScript({ file: "/content_scripts/commandExecutor.js", allFrames: true }));
+    } else {
+      const result = await worker.tabs.sendMessage(tab.id, properties);
+      console.debug(result);
+      return result;
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+async function executeSteps(orderedSteps, tab) {
+  for (let ndx in orderedSteps) {
+    if (orderedSteps.hasOwnProperty(ndx)) {
+      const step = orderedSteps[ndx];
+      await executeStep(step, tab);
+    }
+  }
+}
 
 export default Service.extend({
   async run(faucet) {
     try {
-      //const [tab] = await browser.tabs.query({ active: true, currentWindow: true });
-      const tab = await browser.tabs.create( { active: true, url: faucet.url });
-      Ember.Logger.debug(new Date());
-      await new RSVP.Promise(resolve => window.setTimeout(resolve, 3000));
-      Ember.Logger.debug(new Date());
+      //const [tab] = await worker.tabs.query({ active: true, currentWindow: true });
+      const tab = await worker.tabs.create({ active: true, url: faucet.url });
+      console.debug(new Date());
+      await RSVP.cast(worker.tabs.executeScript({ file: "/content_scripts/commandExecutor.js", allFrames: true }));
       const steps = await faucet.get('steps');
-      const mostSteps = steps.slice(0, steps.length - 1).map((step, index) => {
-        const code = step.get('toCode');
-        Ember.Logger.debug({ code, index });
-        return browser.tabs.executeScript(tab.id, { code, allFrames: true });
-      });
-      await RSVP.all(mostSteps);
-      const code = steps.get('lastObject.toCode');
-      Ember.Logger.debug({ code, index: 'lastObject' });
-      await new RSVP.Promise(resolve => window.setTimeout(resolve, 5000));
-      await browser.tabs.executeScript(tab.id, { code, allFrames: true });
-      faucet.set('lastClaim', new Date());
-      return faucet.save();
+      await executeSteps(steps.sortBy('order').toArray(), tab);
     } catch (error) {
-      Ember.Logger.error(error);
+      console.error(error);
     }
   },
 });

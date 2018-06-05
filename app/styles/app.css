@@ -24,6 +24,10 @@ body {
   margin-top: 10px;
 }
 
+.mdc-list-item__text {
+  width: 300px;
+}
+
 .mdc-textfield--fullwidth:not(.mdc-textfield--multiline) {
   height: auto;
 }

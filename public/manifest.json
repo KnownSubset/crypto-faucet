@@ -6,7 +6,11 @@
   "description": "Makes it possible to automate the pouring of a faucet.",
 
   "icons": {
-    "48": "icons/border-48.png"
+    "16": "icons/faucet-16.png",
+    "48": "icons/faucet-48.png",
+    "50": "icons/faucet-50.png",
+    "64": "icons/faucet-64.png",
+    "100": "icons/faucet-100.png"
   },
 
   "permissions": [
@@ -16,10 +20,10 @@
     "webNavigation"
   ],
 
-  "sidebar_action": {
-    "default_icon": "icons/beasts-32.png",
+  "browser_action": {
+    "default_icon": "icons/faucet-48.png",
     "default_title": "Crypto Faucet",
-    "default_panel": "index.html"
+    "default_popup": "index.html"
   }
 
 }
